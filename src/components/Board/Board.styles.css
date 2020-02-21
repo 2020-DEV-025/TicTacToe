@@ -19,4 +19,16 @@
     color: #808080;
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+    text-align: center;
+}
+
+
+h4 {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #FFA500;
+    padding: 10px;
+    border: 4px solid white;
+    border-radius: 10px;
 }

@@ -23,66 +23,58 @@ class Board extends React.Component<{}, BoardState> {
     private nextPlayer = (): void => {
         const { currentPlayer, gameBoard } = this.state;
         const result: TTT | undefined = checkWinner(gameBoard);
-        switch (result){
-            case "X":
-                this.setState({ winner: currentPlayer });
-                break;
-            case "O":
-                this.setState({ winner: currentPlayer });
-                break;
-            case " ":
-                this.setState({ winner: " " });
-                break;
-            default:
-                this.setState({ currentPlayer: currentPlayer === 'X' ? 'O' : 'X' });
+        if (result === undefined) {
+            this.setState({ currentPlayer: currentPlayer === 'X' ? 'O' : 'X' });
+        } else {
+            this.setState({ winner: result });
         }
     }
 
-    private handleClickRestart = ():void => {
-        
+    private handleClickRestart = (): void => {
+
         let tmp: TTT[] = [
-                " ", " ", " ",
-                " ", " ", " ",
-                " ", " ", " "]
+            " ", " ", " ",
+            " ", " ", " ",
+            " ", " ", " "]
 
         this.setState({ gameBoard: tmp });
         this.setState({ currentPlayer: "X" });
-        this.setState({ winner: undefined});
+        this.setState({ winner: undefined });
     }
 
     private handleClick = (i: number): void => {
         const { gameBoard, currentPlayer, winner } = this.state;
-        let tmp:TTT[] = [...gameBoard];
-        if(isMovePossible(gameBoard, i) && winner === undefined){
-            tmp = makeMove(tmp,currentPlayer,i);
+        let tmp: TTT[] = [...gameBoard];
+        if (isMovePossible(gameBoard, i) && winner === undefined) {
+            tmp = makeMove(tmp, currentPlayer, i);
             this.setState({ gameBoard: tmp }, this.nextPlayer);
         }
-        
+
     }
 
     public render = (): ReactNode => {
-        const { winner, currentPlayer,gameBoard } = this.state;
+        const { winner, currentPlayer, gameBoard } = this.state;
 
         return (
             <div className="board">
                 <div className="board-container">
                     {
-                       gameBoard.map((value: any, index: number) => {
-                           return (
-                               <div key={index} className={classNames({'square-inline':  index % 3 !== 0})}>
-                                <Square
-                                    value={this.state.gameBoard[index]} 
-                                    onClick={() => this.handleClick(index)} 
-                                />
+                        gameBoard.map((value: any, index: number) => {
+                            return (
+                                <div key={index} className={classNames({ 'square-inline': index % 3 !== 0 })}>
+                                    <Square
+                                        value={this.state.gameBoard[index]}
+                                        onClick={() => this.handleClick(index)}
+                                    />
                                 </div>
-                           );
-                       })
+                            );
+                        })
                     }
                 </div>
                 <div className="player-details">
-                    <h3>Next Player: {currentPlayer}</h3>  
-                    {(winner === "X" || winner === "O") && (<h3>Winner: {winner}</h3>)}
-                    {(winner === " ") && (<h3>Draw !</h3>)}
+                    {(winner === undefined && <h3>Next Player: {currentPlayer}</h3>)}
+                    {(winner === "X" || winner === "O") && (<h4>Winner: {winner} <span>&#128526;</span></h4>)}
+                    {(winner === " ") && (<h4>Draw ! <span>&#128533;</span></h4>)}
                     <button className="btn btn-success" onClick={() => this.handleClickRestart()}>Restart game</button>
                 </div>
             </div>
