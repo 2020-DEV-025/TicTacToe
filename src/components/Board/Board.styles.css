@@ -8,9 +8,15 @@
 }
 
 .board-container {
-    width: 600px;
+    width: 540px;
 }
 
 .square-inline {
     display: inline-block;
+}
+
+.player-details {
+    color: #808080;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
 }

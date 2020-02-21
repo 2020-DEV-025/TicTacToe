@@ -79,7 +79,7 @@ class Board extends React.Component<{}, BoardState> {
                        })
                     }
                 </div>
-                <div>
+                <div className="player-details">
                     <h3>Next Player: {currentPlayer}</h3>  
                     {(winner === "X" || winner === "O") && (<h3>Winner: {winner}</h3>)}
                     {(winner === " ") && (<h3>Draw !</h3>)}
