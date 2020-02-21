@@ -23,11 +23,33 @@ class Board extends React.Component<{}, BoardState> {
 
     private nextPlayer = (): void => {
         const { currentPlayer, gameBoard } = this.state;
-        if (checkWinner(gameBoard)) {
-            this.setState({ winner: currentPlayer });
-        }else {
-            this.setState({ currentPlayer: currentPlayer === 'X' ? 'O' : 'X' });
+        const result: TTT | undefined = checkWinner(gameBoard);
+        switch (result){
+            case "X":
+                this.setState({ winner: currentPlayer });
+                break;
+            case "O":
+                this.setState({ winner: currentPlayer });
+                break;
+            case " ":
+                this.setState({ winner: " " });
+                break;
+            default:
+                this.setState({ currentPlayer: currentPlayer === 'X' ? 'O' : 'X' });
         }
+    }
+
+    private handleClickRestart = ():void => {
+        console.log("Restart");
+        const { gameBoard, currentPlayer } = this.state;
+        
+        let tmp: TTT[] = [
+                " ", " ", " ",
+                " ", " ", " ",
+                " ", " ", " "]
+
+        this.setState({ gameBoard: tmp });
+        this.setState({ currentPlayer: "X" });
     }
 
     private handleClick = (i: number): void => {
@@ -37,8 +59,6 @@ class Board extends React.Component<{}, BoardState> {
             tmp[i] = currentPlayer;
             this.setState({ gameBoard: tmp }, this.nextPlayer);
         }
-        
-
         
     }
 
@@ -61,9 +81,11 @@ class Board extends React.Component<{}, BoardState> {
                        })
                     }
                 </div>
-                <div className="player-details">
-                    <h3>Next Player: {currentPlayer}</h3>
-                    {winner && (<h3>Winner: {winner}</h3>)}
+                <div>
+                    <h3>Next Player: {currentPlayer}</h3>  
+                    {(winner === "X" || winner === "O") && (<h3>Winner: {winner}</h3>)}
+                    {(winner === " ") && (<h3>Draw !</h3>)}
+                    <button className="btn btn-success" onClick={() => this.handleClickRestart()}>Restart game</button>
                 </div>
             </div>
         );
