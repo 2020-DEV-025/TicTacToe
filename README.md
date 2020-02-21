@@ -1,4 +1,5 @@
 ## Tic Tac Toe
+![Alt text](./public/android-chrome-512x512.png?raw=true "Tic Tac Toe")
 
 ## Run the game
 To run the game locally, run:
