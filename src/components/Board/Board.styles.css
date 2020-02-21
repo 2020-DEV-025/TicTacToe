@@ -1,0 +1,16 @@
+.board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    min-height: 100vh;
+}
+
+.board-container {
+    width: 150px;
+}
+
+.square-inline {
+    display: inline-block;
+}

@@ -1,13 +1,13 @@
 import React from 'react';
 import Board from '../Board/Board';
 
+import './Game.styles.css';
+
 class Game extends React.Component {
     render() {
         return (
-            <div className="container">
-                <div className="row">
-                    <Board />
-                </div>
+            <div className="game">
+                <Board />
             </div>
         )
     }

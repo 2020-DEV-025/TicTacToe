@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Square from '../Square/Square';
-import { BoardType } from './Board.types';
+import { BoardState, TTT } from './Board.types';
 
+import './Board.styles.css';
+import { checkWinner } from './BoardUtils';
 
+const classNames = require('classnames');
 
-class Board extends React.Component<{}, BoardType> {
+class Board extends React.Component<{}, BoardState> {
+    private nbSquare: number = 9;
 
     constructor(props) {
         super(props);
@@ -12,54 +16,57 @@ class Board extends React.Component<{}, BoardType> {
             gameBoard: [" ", " ", " ",
                 " ", " ", " ",
                 " ", " ", " "],
-            currentPlayer: 'X'
+            currentPlayer: 'X',
+            winner: undefined,
         }
     }
 
-    handleClick(i: number) {
-        const { gameBoard } = this.state;
+    private nextPlayer = (): void => {
+        const { currentPlayer, gameBoard } = this.state;
+        if (checkWinner(gameBoard)) {
+            this.setState({ winner: currentPlayer });
+        }else {
+            this.setState({ currentPlayer: currentPlayer === 'X' ? 'O' : 'X' });
+        }
+    }
+
+    private handleClick = (i: number): void => {
+        const { gameBoard, currentPlayer, winner } = this.state;
         const tmp = [...gameBoard];
-        tmp[i] = this.state.currentPlayer;
-        this.setState({ gameBoard: tmp })
+        if(tmp[i]===" " && winner === undefined){
+            tmp[i] = currentPlayer;
+            this.setState({ gameBoard: tmp }, this.nextPlayer);
+        }
+        
 
-        this.setState({ currentPlayer: this.state.currentPlayer === 'X' ? 'O' : 'X' });
+        
     }
 
-    render() {
+    public render = (): ReactNode => {
+        const { winner, currentPlayer,gameBoard } = this.state;
+
         return (
-                
+            <div className="board">
                 <div className="board-container">
-                    <h3>Next Player: {this.state.currentPlayer}</h3>
-                    <div className="row">
-                        <Square value={this.state.gameBoard[0]} onClick={() => this.handleClick(0)} />
-                        <Square value={this.state.gameBoard[1]} onClick={() => this.handleClick(1)} />
-                        <Square value={this.state.gameBoard[2]} onClick={() => this.handleClick(2)} />
-                    </div>
-                    <div className="row">
-                        <Square value={this.state.gameBoard[3]} onClick={() => this.handleClick(3)} />
-                        <Square value={this.state.gameBoard[4]} onClick={() => this.handleClick(4)} />
-                        <Square value={this.state.gameBoard[5]} onClick={() => this.handleClick(5)} />
-                    </div>
-                    <div className="row">
-                        <Square value={this.state.gameBoard[6]} onClick={() => this.handleClick(6)} />
-                        <Square value={this.state.gameBoard[7]} onClick={() => this.handleClick(7)} />
-                        <Square value={this.state.gameBoard[8]} onClick={() => this.handleClick(8)} />
-                    </div>
+                    {
+                       gameBoard.map((value: any, index: number) => {
+                           return (
+                               <div key={index} className={classNames({'square-inline':  index % 3 !== 0})}>
+                                <Square
+                                    value={this.state.gameBoard[index]} 
+                                    onClick={() => this.handleClick(index)} 
+                                />
+                                </div>
+                           );
+                       })
+                    }
                 </div>
+                <div className="player-details">
+                    <h3>Next Player: {currentPlayer}</h3>
+                    {winner && (<h3>Winner: {winner}</h3>)}
+                </div>
+            </div>
         );
-    }
-
-    checkWinner = () => {
-        const winPossibilities = [
-            [0,1,2],
-            [3,4,5],
-            [6,7,8],
-            [0,3,6],
-            [1,4,7],
-            [2,5,8],
-            [0,4,5],
-            [6,4,2]
-        ]
     }
 }
 
