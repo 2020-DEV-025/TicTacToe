@@ -1,5 +1,6 @@
 import React from 'react';
 import { SquareProps } from './Square.types';
+import './Square.styles.css';
 
 class Square extends React.PureComponent<SquareProps> {
 
