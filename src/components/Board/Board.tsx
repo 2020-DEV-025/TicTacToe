@@ -8,7 +8,6 @@ import { checkWinner } from './BoardUtils';
 const classNames = require('classnames');
 
 class Board extends React.Component<{}, BoardState> {
-    private nbSquare: number = 9;
 
     constructor(props) {
         super(props);
@@ -40,8 +39,6 @@ class Board extends React.Component<{}, BoardState> {
     }
 
     private handleClickRestart = ():void => {
-        console.log("Restart");
-        const { gameBoard, currentPlayer } = this.state;
         
         let tmp: TTT[] = [
                 " ", " ", " ",
@@ -50,6 +47,7 @@ class Board extends React.Component<{}, BoardState> {
 
         this.setState({ gameBoard: tmp });
         this.setState({ currentPlayer: "X" });
+        this.setState({ winner: undefined});
     }
 
     private handleClick = (i: number): void => {

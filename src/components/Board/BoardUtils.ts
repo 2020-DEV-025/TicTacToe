@@ -28,16 +28,17 @@ export const checkWinner = (gameBoard: TTT[]): TTT | undefined => {
         }
     });
 
-    gameBoard.forEach((square) => {
-        if(square !== " "){
-            ++counter;
+    if(result === undefined){
+        gameBoard.forEach((square) => {
+            if(square !== " "){
+                ++counter;
+            }
+        });
+    
+        if(counter === 9){
+            result = " ";
         }
-    });
-
-    if(counter === 9){
-        result = " ";
     }
-
-    console.log(result);
+    
     return result;
-}
+};

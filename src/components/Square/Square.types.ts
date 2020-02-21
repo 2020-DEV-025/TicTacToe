@@ -1,4 +1,6 @@
+import { TTT } from "../Board/Board.types";
+
 export interface SquareProps {
-    value: string;
+    value: TTT;
     onClick: () => void;
 }

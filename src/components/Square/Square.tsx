@@ -4,10 +4,6 @@ import './Square.styles.css';
 
 class Square extends React.PureComponent<SquareProps> {
 
-    constructor(props: Readonly<SquareProps>) {
-        super(props);
-    }
-
     render() {
         const { value } = this.props;
         return (
@@ -16,11 +12,5 @@ class Square extends React.PureComponent<SquareProps> {
     }
 }
 
-// const Squares: React.FunctionComponent<SquareProps> = props => {
-//     const { value } = props;
-//     return (
-//         <button className="square" onClick={() => alert('clic: '+value)}>{value}</button>
-//     );
-// }
 
 export default Square;
