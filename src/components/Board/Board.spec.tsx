@@ -1,24 +1,30 @@
-import { shallow } from 'enzyme';
 import { TTT } from './Board.types';
-import Board from './Board';
-import { checkWinner } from './BoardUtils';
+import { checkWinner, isMovePossible, makeMove } from './BoardUtils';
 
 describe('Tic Tac Toe', () => {
+  
+    it('move possible', () => {
+        const gameBoard: TTT[] = ["X", "O", "X",
+            " ", "O", " ",
+            " ", "X", " "];
+        
+        expect(isMovePossible(gameBoard,5)).toBeTruthy();
+    })
+  
+    it('move not possible', () => {
+        const gameBoard: TTT[] = ["X", "O", "X",
+            " ", "O", " ",
+            " ", "X", " "];
+        
+        expect(isMovePossible(gameBoard,1)).toBeFalsy();
+    })
 
-    it('X plays first', () => {
-      
-    })
-  
-    it('O plays second', () => {
+    it('make the move in the good square', () => {
+        const gameBoard: TTT[] = ["X", "O", "X",
+            " ", "O", " ",
+            " ", "X", " "];
         
-    })
-  
-    it('disable playing on played position', () => {
-        
-    })
-  
-    it('should be able to make move and change turn', () => {
-        
+        expect(makeMove(gameBoard,"X",5)[5]).toBe("X");
     })
 
     it('should have no winner yet', () => {

@@ -3,7 +3,7 @@ import Square from '../Square/Square';
 import { BoardState, TTT } from './Board.types';
 
 import './Board.styles.css';
-import { checkWinner } from './BoardUtils';
+import { checkWinner, isMovePossible, makeMove } from './BoardUtils';
 
 const classNames = require('classnames');
 
@@ -52,9 +52,9 @@ class Board extends React.Component<{}, BoardState> {
 
     private handleClick = (i: number): void => {
         const { gameBoard, currentPlayer, winner } = this.state;
-        const tmp = [...gameBoard];
-        if(tmp[i]===" " && winner === undefined){
-            tmp[i] = currentPlayer;
+        let tmp:TTT[] = [...gameBoard];
+        if(isMovePossible(gameBoard, i) && winner === undefined){
+            tmp = makeMove(tmp,currentPlayer,i);
             this.setState({ gameBoard: tmp }, this.nextPlayer);
         }
         

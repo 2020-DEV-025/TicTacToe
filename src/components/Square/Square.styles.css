@@ -1,5 +1,39 @@
 .square {
     background: #CD833F;
+    border: 5px solid white;
+    border-radius: 10px;
+    float: left;
+    font-size: 90px;
+    color: white;
+    font-weight: normal;
+    line-height: 34px;
+    margin-right: -2px;
+    margin-top: -7px;
+    padding: 0;
+    text-align: center;
+    height: 180px;
+    width: 180px;
+  }
+
+  .square-x {
+    background: #9ACD32;
+    border: 4px solid white;
+    border-radius: 10px;
+    float: left;
+    font-size: 90px;
+    color: white;
+    font-weight: normal;
+    line-height: 34px;
+    margin-right: -2px;
+    margin-top: -7px;
+    padding: 0;
+    text-align: center;
+    height: 180px;
+    width: 180px;
+  }
+
+  .square-o {
+    background: #F08080;
     border: 4px solid white;
     border-radius: 10px;
     float: left;
@@ -16,11 +50,19 @@
   }
 
   .square:hover {
-    background-color: #9ACD32;
+    background-color: #FFDAB9;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     color: white;
   }
 
   .square:focus{
+    outline: 0;
+  }
+
+  .square-o:focus{
+    outline: 0;
+  }
+
+  .square-x:focus{
     outline: 0;
   }

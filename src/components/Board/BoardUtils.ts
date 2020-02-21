@@ -13,7 +13,6 @@ const winPossibilities = [
 
 export const checkWinner = (gameBoard: TTT[]): TTT | undefined => {
     let result: TTT | undefined = undefined;
-    let counter = 0;
 
     winPossibilities.forEach((possibility) => {
         if (gameBoard[possibility[0]] === gameBoard[possibility[1]]
@@ -28,17 +27,39 @@ export const checkWinner = (gameBoard: TTT[]): TTT | undefined => {
         }
     });
 
-    if(result === undefined){
-        gameBoard.forEach((square) => {
-            if(square !== " "){
-                ++counter;
-            }
-        });
-    
-        if(counter === 9){
-            result = " ";
-        }
+    if(result === undefined && isBoardFullfilled(gameBoard)){
+        result = " ";
     }
     
     return result;
+};
+
+const isBoardFullfilled = (gameBoard: TTT[]):boolean => {
+    let counter: number = 0;
+    gameBoard.forEach((square) => {
+        if(square !== " "){
+            ++counter;
+        }
+    });
+
+    if(counter === 9){
+        return true;
+    } else {
+        return false;
+    }
+};
+
+export const isMovePossible = (gameBoard: TTT[], index:number):boolean => {
+    if(gameBoard[index]===" "){
+        return true;
+    } else {
+        return false;
+    }
+};
+
+export const makeMove = (gameBoard: TTT[], player: TTT, index:number):TTT[] => {
+    if(isMovePossible(gameBoard, index)){
+        gameBoard[index]=player;
+    }
+    return gameBoard;
 };
